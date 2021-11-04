@@ -1,4 +1,5 @@
 from .arca23k import Arca23K, Arca23K_FSD
+from .audioset import AudioSet, AudioSetOntology
 from .esc import ESC10, ESC50
 from .fsd50k import FSD50K
 from .fsdkaggle2018 import FSDKaggle2018
@@ -11,6 +12,8 @@ from .urbansound import UrbanSound8K
 __all__ = [
     'Arca23K',
     'Arca23K_FSD',
+    'AudioSet',
+    'AudioSetOntology',
     'ESC10',
     'ESC50',
     'FSD50K',
