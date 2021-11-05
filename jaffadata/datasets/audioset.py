@@ -51,6 +51,10 @@ class AudioSet(Dataset):
 
         self.label_set = sorted(set(eval_tags.labels.sum()))
 
+    @staticmethod
+    def target(subset, index=None):
+        return jd.binarize(subset, 'labels', index)
+
 
 class AudioSetOntology:
     def __init__(self, path):
