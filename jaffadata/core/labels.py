@@ -10,15 +10,12 @@ def binarize(subset, tag_name, index=None, is_label=True):
                       axis=1, keys=fnames).T
         return y
 
-    label_set = subset.dataset.label_set
-    y = pd.Series(np.zeros(len(label_set)), index=label_set, name=index)
-    label = subset.tags[tag_name].loc[index]
-    if isinstance(label, list):
-        labels = label
-        for label in labels:
-            y[label_set.index(label)] = 1
-    elif is_label:
-        y[label_set.index(label)] = 1
-    else:
-        y[label] = 1
+    labels = subset.tags[tag_name].loc[index]
+    if not isinstance(labels, list):
+        labels = [labels]
+
+    y_index = subset.dataset.label_set
+    label_set = y_index if is_label else range(len(y_index))
+    y = pd.Series(label_set, index=y_index, name=index)
+    y = y.isin(labels).astype(float)
     return y
