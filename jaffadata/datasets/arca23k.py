@@ -6,7 +6,7 @@ import jaffadata as jd
 from jaffadata import Dataset, DataSubset
 
 
-class Arca23K_(Dataset):
+class _Arca23K(Dataset):
     def __init__(self, name, root_dir, data_dirs,
                  train_gt_dir, test_gt_dir=None):
         super().__init__(name,
@@ -40,7 +40,7 @@ class Arca23K_(Dataset):
         return jd.binarize(subset, 'label', index)
 
 
-class Arca23K(Arca23K_):
+class Arca23K(_Arca23K):
     def __init__(self, root_dir, fsd50k_dir):
         root_dir = Path(root_dir)
         fsd50k_dir = Path(fsd50k_dir)
@@ -56,7 +56,7 @@ class Arca23K(Arca23K_):
                          )
 
 
-class Arca23K_FSD(Arca23K_):
+class Arca23K_FSD(_Arca23K):
     def __init__(self, root_dir, fsd50k_dir):
         root_dir = Path(root_dir)
         fsd50k_dir = Path(fsd50k_dir)
