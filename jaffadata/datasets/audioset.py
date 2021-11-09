@@ -36,7 +36,7 @@ class AudioSet(Dataset):
         bal_set = DataSubset('training/balanced', self, bal_tags,
                              self.root_dir / 'balanced_train')
         unbal_set = DataSubset('training/unbalanced', self, unbal_tags,
-                               self.root_dir / 'balanced_train')
+                               self.root_dir / 'unbalanced_train')
         train_set = jd.concat([bal_set, unbal_set], 'training')
         self.add_subset(bal_set)
         self.add_subset(unbal_set)
