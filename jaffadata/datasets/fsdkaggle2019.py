@@ -33,9 +33,15 @@ class FSDKaggle2019(Dataset):
         self.add_subset(noisy)
         self.add_subset(combined)
 
-        # Add test set
+        # Add test sets based on Public/Private split
+        mask = test_tags.usage == 'Public'
         test_dir = self.root_dir / 'FSDKaggle2019.audio_test'
-        self.add_subset(DataSubset('test', self, test_tags, test_dir))
+        public = DataSubset('test/public', self, test_tags[mask], test_dir)
+        private = DataSubset('test/private', self, test_tags[mask], test_dir)
+        combined = jd.concat([public, private], 'test')
+        self.add_subset(public)
+        self.add_subset(private)
+        self.add_subset(combined)
 
         # Create aliases
         self['training'] = self['train']
