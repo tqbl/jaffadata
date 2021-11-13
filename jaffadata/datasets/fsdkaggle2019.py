@@ -1,10 +1,10 @@
 import pandas as pd
 
 import jaffadata as jd
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
-class FSDKaggle2019(Dataset):
+class FSDKaggle2019(AudioDataset):
     def __init__(self, root_dir):
         super().__init__('FSDKaggle2019',
                          root_dir,

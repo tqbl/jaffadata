@@ -1,10 +1,10 @@
 import pandas as pd
 
 import jaffadata as jd
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
-class FSD50K(Dataset):
+class FSD50K(AudioDataset):
     def __init__(self, root_dir):
         super().__init__('FSD50K',
                          root_dir,

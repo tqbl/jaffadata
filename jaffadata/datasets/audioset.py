@@ -4,10 +4,10 @@ import json
 import pandas as pd
 
 import jaffadata as jd
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
-class AudioSet(Dataset):
+class AudioSet(AudioDataset):
     def __init__(self, root_dir, sample_rate=44100,
                  n_channels=1, bit_depth=16):
         super().__init__('AudioSet',

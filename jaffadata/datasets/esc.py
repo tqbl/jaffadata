@@ -1,10 +1,10 @@
 import pandas as pd
 
 import jaffadata as jd
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
-class _ESC(Dataset):
+class _ESC(AudioDataset):
     def __init__(self, name, root_dir, mask=None):
         super().__init__(name,
                          root_dir,

@@ -3,10 +3,10 @@ from pathlib import Path
 import pandas as pd
 
 import jaffadata as jd
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
-class _Arca23K(Dataset):
+class _Arca23K(AudioDataset):
     def __init__(self, name, root_dir, data_dirs,
                  train_gt_dir, test_gt_dir=None):
         super().__init__(name,

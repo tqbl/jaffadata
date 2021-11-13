@@ -7,24 +7,12 @@ from .mask import FrameMask
 
 
 class Dataset:
-    def __init__(self,
-                 name,
-                 root_dir,
-                 sample_rate=None,
-                 n_channels=1,
-                 bit_depth=16,
-                 clip_duration=None,
-                 label_set=None,
-                 ):
+    def __init__(self, name, root_dir, label_set=None):
         self.root_dir = Path(root_dir)
         if not self.root_dir.is_dir():
             raise FileNotFoundError(f'No such directory: {root_dir}')
 
         self.name = name
-        self.sample_rate = sample_rate
-        self.n_channels = n_channels
-        self.bit_depth = bit_depth
-        self.clip_duration = clip_duration
         self.label_set = label_set
         self.subsets = dict()
 
@@ -52,6 +40,24 @@ class Dataset:
 
     def __str__(self):
         return self.name
+
+
+class AudioDataset(Dataset):
+    def __init__(self,
+                 name,
+                 root_dir,
+                 sample_rate=None,
+                 n_channels=1,
+                 bit_depth=16,
+                 clip_duration=None,
+                 label_set=None,
+                 ):
+        super().__init__(name, root_dir, label_set)
+
+        self.sample_rate = sample_rate
+        self.n_channels = n_channels
+        self.bit_depth = bit_depth
+        self.clip_duration = clip_duration
 
 
 class DataSubset:

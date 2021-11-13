@@ -1,10 +1,10 @@
 import pandas as pd
 
 import jaffadata as jd
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
-class FSDnoisy18k(Dataset):
+class FSDnoisy18k(AudioDataset):
     def __init__(self, root_dir):
         super().__init__('FSDnoisy18k',
                          root_dir,

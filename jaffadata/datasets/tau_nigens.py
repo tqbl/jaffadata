@@ -2,7 +2,7 @@ import re
 
 import pandas as pd
 
-from jaffadata import Dataset, DataSubset
+from jaffadata import AudioDataset, DataSubset
 
 
 LABEL_SET_2020 = [
@@ -39,7 +39,7 @@ LABEL_SET_2021 = [
 ]
 
 
-class TauNigens2020(Dataset):
+class TauNigens2020(AudioDataset):
     def __init__(self, root_dir):
         super().__init__('TAU-NIGENS 2020',
                          root_dir,
@@ -81,7 +81,7 @@ class TauNigens2020(Dataset):
         return target(subset, index)
 
 
-class TauNigens2021(Dataset):
+class TauNigens2021(AudioDataset):
     def __init__(self, root_dir):
         super().__init__('TAU-NIGENS 2021',
                          root_dir,
