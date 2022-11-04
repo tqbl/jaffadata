@@ -1,4 +1,5 @@
 import functools
+import warnings
 from pathlib import Path
 
 import pandas as pd
@@ -147,16 +148,20 @@ class DataSubset:
 
     @staticmethod
     def concat(subsets, name=None):
+        # Check that subsets are from the same dataset
+        ref = subsets[0]
+        if any(ref.dataset != subset.dataset for subset in subsets[1:]):
+            warnings.warn('Subset datasets do not match', RuntimeWarning)
+
         tags = pd.concat([subset.tags for subset in subsets])
         private_tags = pd.concat([subset._tags for subset in subsets])
-        subset = DataSubset(name or subsets[0].name,
-                            subsets[0].dataset,
-                            (tags, private_tags))
+        clazz = ref.__class__  # Constructor for creating subset
+        subset = clazz(name or ref.name, ref.dataset, (tags, private_tags))
         return subset
 
     def _subset(self, name, callback):
         tags = (callback(self.tags), callback(self._tags))
-        return DataSubset(name, self.dataset, tags)
+        return self.__class__(name, self.dataset, tags)
 
 
 class _Indexer:
