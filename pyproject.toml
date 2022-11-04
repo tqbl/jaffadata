@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jaffadata"
-version = "0.3.0"
+version = "0.3.1"
 description = "A library for working with audio datasets in ML"
 authors = ["Turab Iqbal <t.iqbal@surrey.ac.uk>"]
 repository = "https://github.com/tqbl/jaffadata"
