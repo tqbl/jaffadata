@@ -99,7 +99,7 @@ class DataSubset:
             self._tags['audio_dir'] = audio_dir
 
     def __getitem__(self, key):
-        return self.subset(self.name, key)
+        return self.subset(key)
 
     def __len__(self):
         return len(self.tags)
@@ -109,11 +109,11 @@ class DataSubset:
 
     @property
     def loc(self):
-        return _Indexer(lambda idx: self.subset_loc(self.name, idx))
+        return _Indexer(lambda idx: self.subset_loc(idx))
 
     @property
     def iloc(self):
-        return _Indexer(lambda idx: self.subset_iloc(self.name, idx))
+        return _Indexer(lambda idx: self.subset_iloc(idx))
 
     @functools.cached_property
     def audio_paths(self):
@@ -121,7 +121,7 @@ class DataSubset:
         fnames = self.tags.index.unique(level=0)
         return audio_dirs / fnames
 
-    def subset(self, name, mask, complement=False):
+    def subset(self, mask, name=None, complement=False):
         if callable(mask):
             mask = mask(self.tags)
         elif isinstance(mask, str):
@@ -134,13 +134,13 @@ class DataSubset:
 
         return self._subset(name, lambda tags: tags[mask])
 
-    def subset_loc(self, name, index):
+    def subset_loc(self, index, name=None):
         return self._subset(name, lambda tags: tags.loc[index])
 
-    def subset_iloc(self, name, index):
+    def subset_iloc(self, index, name=None):
         return self._subset(name, lambda tags: tags.iloc[index])
 
-    def sample(self, name, n=None, **kwargs):
+    def sample(self, n=None, name=None, **kwargs):
         return self.subset_loc(name, self.tags.sample(n, **kwargs).index)
 
     def target(self, index=None):
@@ -160,6 +160,10 @@ class DataSubset:
         return subset
 
     def _subset(self, name, callback):
+        if name is None:
+            # Default to name of parent
+            name = self.name
+
         tags = (callback(self.tags), callback(self._tags))
         return self.__class__(name, self.dataset, tags)
 
