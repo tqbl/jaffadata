@@ -81,8 +81,9 @@ class DataSubset:
         # One or more private tags are stored in self._tags
         if tags is None:
             # Create an empty DataFrame if no tags are given
+            extensions = ['.wav', '.flac', '.ogg', '.opus', '.mp3', '.sph']
             index = pd.Index([path.name for path in audio_dir.iterdir()
-                              if path.suffix == '.wav'])
+                              if path.suffix in extensions])
             self.tags = pd.DataFrame(index=index)
             self._tags = pd.DataFrame(index=self.tags.index)
         elif isinstance(tags, tuple) and len(tags) == 2:
