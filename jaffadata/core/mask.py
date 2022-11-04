@@ -1,18 +1,20 @@
 import operator
 import re
 
+import pandas.api.types as types
+
 
 class FrameMask:
     def __init__(self, specs):
         self.specs = [FrameMask._parse(spec) for spec in specs.split(',')]
 
     def value(self, df):
-        mask = 1
+        mask = True
         for key, value, op in self.specs:
             # Convert the value to the appropriate type
-            if df.dtypes[key] == int:
+            if types.is_integer_dtype(df.dtypes[key]):
                 value = int(value)
-            elif df.dtypes[key] == float:
+            elif types.is_numeric_dtype(df.dtypes[key]):
                 value = float(value)
 
             mask &= op(df[key], value)
